@@ -5,6 +5,17 @@ const imagen = document.getElementById("picture");
 const favBtn = document.getElementById("fav");
 const contFav = document.getElementById("favCont");
 var favList = [];
+const removefn = (elm,id) => {
+    let fn_test = () => {
+        elm.remove();
+        favList = favList.filter((item) => item != id);
+    }
+    return {
+        rm:fn_test
+    }
+};
+// INVESTIGAR CLOSURE
+
 
 btnNext.onclick = () => {
     index++;
