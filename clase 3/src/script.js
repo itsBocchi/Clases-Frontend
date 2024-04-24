@@ -4,7 +4,7 @@ var index = 1;
 const imagen = document.getElementById("picture");
 const favBtn = document.getElementById("fav");
 const contFav = document.getElementById("favCont");
-var favlist = [];
+var favList = [];
 
 btnNext.onclick = () => {
     index++;
@@ -19,13 +19,30 @@ btnBack.onclick = () => {
 }
 
 function updateImage() {
-    var img = document.getElementById('img');
+    let img = document.getElementById('img');
     img.src = "https://picsum.photos/id/" + index + "/200/300";
 }
 
 favBtn.onclick = () => {
-    let picture = document.createElement("img");
-    // inject image into dom
-    picture.src = "https://picsum.photos/id/" + index + "/200/300";
-    contFav.appendChild(picture);
+if (favList.includes(index)) return;
+    let div = document.createElement("div");
+    div.id = "div_" + index;
+    let img = document.createElement("img");
+    img.src = "https://picsum.photos/id/" + index + "/100/150";
+    img.id = "img_" + index;
+    let btn = document.createElement("button");
+    btn.textContent = "X";
+
+    btn.id = "btn_" + index;
+    btn.className = "btn";
+    btn.onclick = (e) => {
+        const id = e.target.id.split("_")[1];
+        const div = document.getElementById("div_" + id);
+        div.remove();
+        favList = favList.filter((item) => item != id);
+    }
+    favList.push(index);
+    div.appendChild(img);
+    div.appendChild(btn);
+    contFav.appendChild(div);
 }
